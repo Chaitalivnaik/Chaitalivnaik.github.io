@@ -79,14 +79,44 @@
     transition: background-color .35s ease, border-color .35s ease;
   }
   nav .wrap{ display:flex; align-items:center; justify-content:space-between; padding-top:16px; padding-bottom:16px; }
-  .brand{ font-family:'Fraunces', serif; font-weight:600; font-size:1.15rem; display:flex; align-items:center; gap:8px; }
+  .brand{ font-family:'Fraunces', serif; font-weight:600; font-size:1.15rem; display:flex; align-items:center; gap:8px; text-decoration:none; color:var(--ink); }
   .brand-dot{ width:10px; height:10px; border-radius:50%; background:var(--coral); display:inline-block; animation: pulse-dot 2.4s ease-in-out infinite; }
   @keyframes pulse-dot{ 0%,100%{ transform:scale(1); opacity:1;} 50%{ transform:scale(1.35); opacity:0.6;} }
   .navlinks{ display:flex; gap:26px; font-size:0.92rem; }
   .navlinks a{ text-decoration:none; color:var(--ink-soft); position:relative; padding:4px 0; }
   .navlinks a:hover{ color:var(--ink); }
   .navlinks a:focus-visible, a:focus-visible{ outline:2px solid var(--grape); outline-offset:3px; border-radius:4px; }
-  @media (max-width:640px){ .navlinks{ display:none; } }
+
+  .menu-toggle{
+    display:none; width:38px; height:38px; border-radius:50%; border:1.5px solid var(--ink);
+    background:transparent; cursor:pointer; align-items:center; justify-content:center; flex-shrink:0;
+    position:relative;
+  }
+  .menu-toggle span{
+    position:absolute; width:16px; height:2px; background:var(--ink); border-radius:2px;
+    transition: transform .25s ease, opacity .25s ease, top .25s ease;
+  }
+  .menu-toggle span:nth-child(1){ top:14px; }
+  .menu-toggle span:nth-child(2){ top:20px; }
+  .menu-toggle span:nth-child(3){ top:26px; }
+  .menu-toggle.open span:nth-child(1){ top:19px; transform:rotate(45deg); }
+  .menu-toggle.open span:nth-child(2){ opacity:0; }
+  .menu-toggle.open span:nth-child(3){ top:19px; transform:rotate(-45deg); }
+
+  .mobile-menu{
+    max-height:0; overflow:hidden; transition:max-height .3s ease;
+    background:var(--nav-bg); border-bottom:1px solid var(--line);
+  }
+  .mobile-menu.open{ max-height:320px; }
+  .mobile-menu a{
+    display:block; padding:16px 28px; text-decoration:none; color:var(--ink);
+    font-size:1.02rem; border-top:1px solid var(--line);
+  }
+
+  @media (max-width:640px){
+    .navlinks{ display:none; }
+    .menu-toggle{ display:flex; }
+  }
 
   .theme-toggle{
     width:38px; height:38px; border-radius:50%; border:1.5px solid var(--ink);
@@ -258,7 +288,7 @@
 
 <nav>
   <div class="wrap">
-    <div class="brand"><span class="brand-dot"></span>Chaitali Naik</div>
+    <a href="#top" class="brand" aria-label="Back to top"><span class="brand-dot"></span>Chaitali Naik</a>
     <div class="navlinks">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
@@ -275,11 +305,21 @@
           <span class="tip-light">it's a sunny morning out there ☀️</span>
         </span>
       </button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" type="button">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
   </div>
 </nav>
 
-<header class="hero">
+<header class="hero" id="top">
   <div class="wrap">
     <div class="eyebrow"><span class="led"></span>open to my next role — let's talk</div>
     <h1>Chaitali Naik<br><span class="accent">turns messy workflows</span><br>into shipped product.</h1>
@@ -446,9 +486,10 @@
     <div class="contact-row">
       <a class="btn btn-solid" href="mailto:naikchaitaliv@gmail.com">naikchaitaliv@gmail.com</a>
       <a class="btn btn-ghost" href="https://github.com/Chaitalivnaik" target="_blank" rel="noopener" aria-label="Chaitali Naik's GitHub profile (opens in new tab)">GitHub ↗</a>
-      <a class="btn btn-ghost" href="#" target="_blank" rel="noopener" aria-label="Chaitali Naik's LinkedIn profile (opens in new tab)">LinkedIn ↗</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/chaitali-naik-625180249/" target="_blank" rel="noopener" aria-label="Chaitali Naik's LinkedIn profile (opens in new tab)">LinkedIn ↗</a>
     </div>
-    <div class="foot-note" style="margin-top:8px;">© 2026 Chaitali Naik. All rights reserved.</div>
+    <div class="foot-note">Karwar, Karnataka</div>
+    <div class="foot-note" style="margin-top:8px;">© <span id="copyYear">2026</span> Chaitali Naik. All rights reserved.</div>
   </div>
 </footer>
 
@@ -468,6 +509,27 @@
       localStorage.setItem('theme', next);
     });
   })();
+
+  (function(){
+    var menuBtn = document.getElementById('menuToggle');
+    var menu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', function(){
+      var isOpen = menu.classList.toggle('open');
+      menuBtn.classList.toggle('open', isOpen);
+      menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      menuBtn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    });
+    menu.querySelectorAll('a').forEach(function(link){
+      link.addEventListener('click', function(){
+        menu.classList.remove('open');
+        menuBtn.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.setAttribute('aria-label', 'Open menu');
+      });
+    });
+  })();
+
+  document.getElementById('copyYear').textContent = new Date().getFullYear();
 </script>
 
 </body>
