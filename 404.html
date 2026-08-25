@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Chaitali Naik</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231C1B29'/%3E%3Ccircle cx='50' cy='50' r='24' fill='%23FF6B4A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FFF9F0; --paper-warm:#FFF2DE; --ink:#1C1B29; --ink-soft:#4A4759;
+    --coral:#FF6B4A; --sunshine:#FFC857; --mint:#4ECDC4; --line: rgba(28,27,41,0.14);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; min-height:100vh; background:var(--paper); color:var(--ink);
+    font-family:'Space Grotesk', sans-serif;
+    display:flex; align-items:center; justify-content:center; text-align:center; padding:24px;
+  }
+  h1{ font-family:'Fraunces', serif; font-weight:600; font-size:clamp(4rem,14vw,7rem); margin:0; color:var(--coral); }
+  h2{ font-family:'Fraunces', serif; font-weight:600; font-size:clamp(1.4rem,4vw,2rem); margin:14px 0 12px; }
+  p{ color:var(--ink-soft); font-size:1.02rem; max-width:420px; margin:0 auto 30px; line-height:1.6; }
+  .mono{ font-family:'JetBrains Mono', monospace; font-size:0.78rem; color:var(--ink-soft); background:var(--paper-warm); border:1px solid var(--line); padding:6px 14px; border-radius:999px; display:inline-block; margin-bottom:22px;}
+  .btn{
+    font-weight:600; font-size:0.92rem; padding:12px 26px; border-radius:999px; text-decoration:none;
+    border:1.5px solid var(--ink); background:var(--ink); color:var(--paper); display:inline-flex; align-items:center; gap:8px;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); box-shadow:4px 4px 0 var(--coral); }
+  .node{ display:inline-flex; align-items:center; gap:8px; }
+  .dot{ width:8px; height:8px; border-radius:50%; background:var(--mint); animation:pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1; transform:scale(1);} 50%{opacity:0.4; transform:scale(1.4);} }
+</style>
+</head>
+<body>
+  <div>
+    <div class="mono node"><span class="dot"></span>workflow_status: broken_link</div>
+    <h1>404</h1>
+    <h2>This node isn't connected to anything.</h2>
+    <p>The page you're looking for doesn't exist — but the rest of the workflow does. Head back to see what I actually build.</p>
+    <a class="btn" href="/">Back to the homepage ↗</a>
+  </div>
+</body>
+</html>
